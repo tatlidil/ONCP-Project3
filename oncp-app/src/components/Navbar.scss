@@ -1,9 +1,19 @@
 .navbar {
-    .nav-link {
-      font-size: 1.1rem;
-      margin-right: 1rem;
-    }
-    .navbar-brand {
-      font-size: 1.5rem;
-    }
+  background-color: #A52A2A !important; // Ensuring the background color is set correctly
+}
+
+.navbar-brand {
+  color: #fff !important;
+
+  &:hover {
+    color: #ffd700 !important;
   }
+}
+
+.navbar-nav .nav-link {
+  color: #fff !important;
+
+  &:hover {
+    color: #ffd700 !important;
+  }
+}

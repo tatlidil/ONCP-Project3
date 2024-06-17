@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Portal from './components/Portal';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import './App.scss';
 
 function App() {
@@ -11,11 +12,14 @@ function App() {
     <Router>
       <div className="App">
         <Navbar />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/portal" element={<Portal />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <main className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/portal" element={<Portal />} />
+            <Route path="/contact" element={<Contact />} />
+          </Routes>
+        </main>
+        <Footer />
       </div>
     </Router>
   );
