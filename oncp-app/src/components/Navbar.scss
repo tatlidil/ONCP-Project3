@@ -1,19 +1,23 @@
 .navbar {
-  background-color: #A52A2A !important; // Ensuring the background color is set correctly
+  background-color: #8b0000; // Dark red color for the background
 }
 
 .navbar-brand {
-  color: #fff !important;
+  font-size: 1.5rem;
+  color: #ffffff; // White color for the brand text
+}
 
+.nav-link {
+  color: #ffffff; // White color for the nav links
   &:hover {
-    color: #ffd700 !important;
+    color: #ffdd00; // Yellow color on hover
   }
 }
 
-.navbar-nav .nav-link {
-  color: #fff !important;
+.navbar-toggler {
+  border-color: #ffffff; // White color for the border of the toggler
+}
 
-  &:hover {
-    color: #ffd700 !important;
-  }
+.navbar-toggler-icon {
+  background-color: #ffffff; // White color for the toggler icon
 }

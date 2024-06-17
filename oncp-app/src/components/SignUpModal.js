@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-const SignUpModal = ({ show, handleClose }) => {
+const SignUpModal = ({ show, handleClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSignUp = async () => {
     try {
       await axios.post('/api/auth/signup', { email, password });
-      handleClose();
+      onSuccess(); // Call the onSuccess handler
     } catch (error) {
       console.error('Error signing up', error);
     }
