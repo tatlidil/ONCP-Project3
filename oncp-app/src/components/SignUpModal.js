@@ -18,7 +18,7 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Sign Up</Modal.Title>
+        <Modal.Title>Sign In</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -48,7 +48,7 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
           Close
         </Button>
         <Button variant="primary" onClick={handleSignUp}>
-          Sign Up
+          Sign In
         </Button>
       </Modal.Footer>
     </Modal>

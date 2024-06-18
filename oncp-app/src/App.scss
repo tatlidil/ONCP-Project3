@@ -16,3 +16,29 @@ body {
   flex: 1;
   padding: 20px;
 }
+.container {
+  margin-top: 20px;
+}
+
+h2, h1 {
+  color: #333;
+}
+
+hr {
+  border-top: 1px solid #ccc;
+}
+
+p {
+  font-size: 16px;
+  color: #555;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.mb-3 {
+  margin-bottom: 30px;
+}
