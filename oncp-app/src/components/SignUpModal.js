@@ -8,8 +8,9 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
 
   const handleSignUp = async () => {
     try {
-      await axios.post('/api/auth/signup', { email, password });
+      await axios.post('http://127.0.0.1:5000/api/auth/signup', { email, password });
       onSuccess(); // Call the onSuccess handler
+      handleClose();
     } catch (error) {
       console.error('Error signing up', error);
     }
@@ -18,7 +19,7 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Sign In</Modal.Title>
+        <Modal.Title>Sign Up</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -48,7 +49,7 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
           Close
         </Button>
         <Button variant="primary" onClick={handleSignUp}>
-          Sign In
+          Sign Up
         </Button>
       </Modal.Footer>
     </Modal>

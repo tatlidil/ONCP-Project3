@@ -8,10 +8,14 @@ const LoginModal = ({ show, handleClose }) => {
 
   const handleLogin = async () => {
     try {
-      await axios.post('/api/auth/login', { email, password });
+      const res = await axios.post('http://127.0.0.1:5000/api/auth/login', { email, password });
+      localStorage.setItem('token', res.data.token); // Store the token
       handleClose();
+      console.log('Login successful');
+      // You can redirect or update state here
     } catch (error) {
       console.error('Error logging in', error);
+      // Display error message to user
     }
   };
 
