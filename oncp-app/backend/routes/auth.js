@@ -1,11 +1,24 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const { check, validationResult } = require('express-validator');
 const User = require('../models/User');
+const config = require('config');
 
 const router = express.Router();
 
-router.post('/signup', async (req, res) => {
+// @route    POST /api/auth/signup
+// @desc     Register user
+// @access   Public
+router.post('/signup', [
+  check('email', 'Please include a valid email').isEmail(),
+  check('password', 'Password must be at least 6 characters').isLength({ min: 6 })
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { email, password } = req.body;
 
   try {
@@ -29,7 +42,7 @@ router.post('/signup', async (req, res) => {
 
     jwt.sign(
       payload,
-      process.env.JWT_SECRET,
+      config.get('JWT_SECRET'),
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;
@@ -42,7 +55,18 @@ router.post('/signup', async (req, res) => {
   }
 });
 
-router.post('/login', async (req, res) => {
+// @route    POST /api/auth/login
+// @desc     Authenticate user & get token
+// @access   Public
+router.post('/login', [
+  check('email', 'Please include a valid email').isEmail(),
+  check('password', 'Password is required').exists()
+], async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
   const { email, password } = req.body;
 
   try {
@@ -64,7 +88,7 @@ router.post('/login', async (req, res) => {
 
     jwt.sign(
       payload,
-      process.env.JWT_SECRET,
+      config.get('JWT_SECRET'),
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;

@@ -1,5 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const connectDB = require('./db');
 const cors = require('cors');
 const authRoutes = require('./routes/auth');
 const session = require('express-session');
@@ -8,6 +8,10 @@ require('dotenv').config();
 
 const app = express();
 
+// Connect Database
+connectDB();
+
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
@@ -17,15 +21,11 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === 'production' }, // Secure cookie in production
+    cookie: { secure: process.env.NODE_ENV === 'production' },
   })
 );
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
-
+// Define Routes
 app.use('/api/auth', authRoutes);
 
 const PORT = process.env.PORT || 5000;
