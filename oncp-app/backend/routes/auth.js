@@ -12,14 +12,16 @@ const router = express.Router();
 // @access   Public
 router.post('/signup', [
   check('email', 'Please include a valid email').isEmail(),
-  check('password', 'Password must be at least 6 characters').isLength({ min: 6 })
+  check('password', 'Password must be at least 6 characters').isLength({ min: 6 }),
+  check('fullName', 'Full Name is required').not().isEmpty(),
+  check('birthDate', 'Birth Date is required').isDate()
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const { email, password } = req.body;
+  const { email, password, fullName, birthDate } = req.body;
 
   try {
     let user = await User.findOne({ email });
@@ -27,7 +29,7 @@ router.post('/signup', [
       return res.status(400).json({ msg: 'User already exists' });
     }
 
-    user = new User({ email, password });
+    user = new User({ email, password, fullName, birthDate });
 
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
@@ -37,6 +39,7 @@ router.post('/signup', [
     const payload = {
       user: {
         id: user.id,
+        name: user.fullName // Include the full name in the token payload
       },
     };
 
@@ -83,6 +86,7 @@ router.post('/login', [
     const payload = {
       user: {
         id: user.id,
+        name: user.fullName // Include the full name in the token payload
       },
     };
 

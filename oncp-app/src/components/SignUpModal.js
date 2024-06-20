@@ -5,10 +5,12 @@ import axios from 'axios';
 const SignUpModal = ({ show, handleClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
 
   const handleSignUp = async () => {
     try {
-      await axios.post('http://127.0.0.1:5000/api/auth/signup', { email, password });
+      await axios.post('http://127.0.0.1:5000/api/auth/signup', { email, password, fullName, birthDate });
       onSuccess(); // Call the onSuccess handler
       handleClose();
     } catch (error) {
@@ -23,6 +25,26 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
+          <Form.Group controlId="formBasicFullName">
+            <Form.Label>Full Name</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter full name"
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group controlId="formBasicBirthDate">
+            <Form.Label>Birth Date</Form.Label>
+            <Form.Control
+              type="date"
+              placeholder="Enter birth date"
+              value={birthDate}
+              onChange={(e) => setBirthDate(e.target.value)}
+            />
+          </Form.Group>
+
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control

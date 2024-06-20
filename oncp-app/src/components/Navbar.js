@@ -1,47 +1,78 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import './Navbar.scss';
-import SignUpModal from './SignUpModal'; 
+import React, { useState, useEffect } from 'react';
+import { Navbar, Nav, Button } from 'react-bootstrap';
+import LoginModal from './LoginModal';
+import SignUpModal from './SignUpModal';
 
-const Navbar = () => {
-  const [showModal, setShowModal] = useState(false);
-  const navigate = useNavigate();
+const CustomNavbar = () => {
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignUp, setShowSignUp] = useState(false);
+  const [user, setUser] = useState(null);
 
+  const handleLoginClose = () => setShowLogin(false);
+  const handleLoginShow = () => setShowLogin(true);
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleSignUpClose = () => setShowSignUp(false);
+  const handleSignUpShow = () => setShowSignUp(true);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const userName = decodedToken.user.name;
+      setUser({ name: userName });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+  };
+
+  const handleLoginSuccess = (userName) => {
+    setUser({ name: userName });
+  };
 
   const handleSignUpSuccess = () => {
-    handleClose();
-    navigate('/portal');
+    // Handle any post-signup logic here
+    console.log('User signed up successfully');
+    setShowSignUp(false);
   };
 
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <Link className="navbar-brand" to="/">ONCP</Link>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav ms-auto">
-              <li className="nav-item">
-                <Link className="nav-link" to="/">Home</Link>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#!" onClick={handleShow}>Portal</a> {/* Use anchor tag to handle click */}
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/contact">Contact</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <SignUpModal show={showModal} handleClose={handleClose} onSuccess={handleSignUpSuccess} /> {/* Pass the success handler */}
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="#home">ONCP</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="mr-auto">
+            <Nav.Link href="#home">Home</Nav.Link>
+            <Nav.Link href="#portal">Portal</Nav.Link>
+            <Nav.Link href="#contact">Contact</Nav.Link>
+            {user ? (
+              <>
+                <Nav.Link href="#welcome">Welcome!</Nav.Link>
+                <Button variant="secondary" onClick={handleLogout}>
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button variant="primary" onClick={handleSignUpShow} className="mr-2">
+                  Sign Up
+                </Button>
+                <Button variant="secondary" onClick={handleLoginShow}>
+                  Login
+                </Button>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+
+      <LoginModal show={showLogin} handleClose={handleLoginClose} onSuccess={handleLoginSuccess} />
+      <SignUpModal show={showSignUp} handleClose={handleSignUpClose} onSuccess={handleSignUpSuccess} />
     </>
   );
-}
+};
 
-export default Navbar;
+export default CustomNavbar;

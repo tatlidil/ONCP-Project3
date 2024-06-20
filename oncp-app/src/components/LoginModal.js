@@ -2,17 +2,20 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 
-const LoginModal = ({ show, handleClose }) => {
+const LoginModal = ({ show, handleClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = async () => {
     try {
       const res = await axios.post('http://127.0.0.1:5000/api/auth/login', { email, password });
-      localStorage.setItem('token', res.data.token); // Store the token
+      const { token } = res.data;
+      localStorage.setItem('token', token); // Store the token
+      const decodedToken = JSON.parse(atob(token.split('.')[1]));
+      const userName = decodedToken.user.name;
+      onSuccess(userName); // Pass the user's name to the onSuccess handler
       handleClose();
       console.log('Login successful');
-      // You can redirect or update state here
     } catch (error) {
       console.error('Error logging in', error);
       // Display error message to user
