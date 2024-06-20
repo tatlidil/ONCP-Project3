@@ -39,7 +39,7 @@ router.post('/signup', [
     const payload = {
       user: {
         id: user.id,
-        name: user.fullName // Include the full name in the token payload
+        name: user.fullName
       },
     };
 
@@ -86,7 +86,7 @@ router.post('/login', [
     const payload = {
       user: {
         id: user.id,
-        name: user.fullName // Include the full name in the token payload
+        name: user.fullName
       },
     };
 

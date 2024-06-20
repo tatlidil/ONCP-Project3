@@ -9,13 +9,10 @@ const LoginModal = ({ show, handleClose, onSuccess }) => {
   const handleLogin = async () => {
     try {
       const res = await axios.post('http://127.0.0.1:5000/api/auth/login', { email, password });
-      const { token } = res.data;
-      localStorage.setItem('token', token); // Store the token
-      const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      const userName = decodedToken.user.name;
-      onSuccess(userName); // Pass the user's name to the onSuccess handler
+      localStorage.setItem('token', res.data.token); // Store the token
+      const decodedToken = JSON.parse(atob(res.data.token.split('.')[1]));
+      onSuccess(decodedToken.user.name);
       handleClose();
-      console.log('Login successful');
     } catch (error) {
       console.error('Error logging in', error);
       // Display error message to user

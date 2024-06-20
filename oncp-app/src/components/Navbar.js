@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import LoginModal from './LoginModal';
 import SignUpModal from './SignUpModal';
+import './Navbar.scss'; // Import the custom SCSS
 
 const CustomNavbar = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -18,8 +19,7 @@ const CustomNavbar = () => {
     const token = localStorage.getItem('token');
     if (token) {
       const decodedToken = JSON.parse(atob(token.split('.')[1]));
-      const userName = decodedToken.user.name;
-      setUser({ name: userName });
+      setUser({ name: decodedToken.user.name });
     }
   }, []);
 
@@ -33,24 +33,25 @@ const CustomNavbar = () => {
   };
 
   const handleSignUpSuccess = () => {
-    // Handle any post-signup logic here
     console.log('User signed up successfully');
     setShowSignUp(false);
   };
 
   return (
     <>
-      <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">ONCP</Navbar.Brand>
+      <Navbar expand="lg" className="custom-navbar">
+        <Navbar.Brand href="#home">
+          <i className="bi bi-file-medical"></i> ONCP
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
+          <Nav className="mx-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#portal">Portal</Nav.Link>
             <Nav.Link href="#contact">Contact</Nav.Link>
             {user ? (
               <>
-                <Nav.Link href="#welcome">Welcome!</Nav.Link>
+                <Nav.Link href="#welcome">Hi {user.name}!</Nav.Link>
                 <Button variant="secondary" onClick={handleLogout}>
                   Logout
                 </Button>
@@ -60,7 +61,7 @@ const CustomNavbar = () => {
                 <Button variant="primary" onClick={handleSignUpShow} className="mr-2">
                   Sign Up
                 </Button>
-                <Button variant="secondary" onClick={handleLoginShow}>
+                <Button variant="secondary" onClick={handleLoginShow} className="ml-2">
                   Login
                 </Button>
               </>
