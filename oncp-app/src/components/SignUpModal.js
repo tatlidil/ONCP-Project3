@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/userSlice';  // Adjust the path as needed
+import { useNavigate } from 'react-router-dom';
 
-const SignUpModal = ({ show, handleClose, onSuccess }) => {
+const SignUpModal = ({ show, handleClose }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+<<<<<<< Updated upstream
   const [fullName, setFullName] = useState('');
   const [birthDate, setBirthDate] = useState('');
 
@@ -13,6 +17,20 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
       await axios.post('http://127.0.0.1:5000/api/auth/signup', { email, password, fullName, birthDate });
       onSuccess(); // Call the onSuccess handler
       handleClose();
+=======
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleSignUp = async () => {
+    try {
+      const response = await axios.post('/api/auth/signup', { email, password });
+      const userData = response.data; // Assuming the response contains user data
+
+      dispatch(login(userData));
+      localStorage.setItem('token', 'example_token'); // Set token in localStorage
+      handleClose();
+      navigate('/portal'); // Navigate to the portal page
+>>>>>>> Stashed changes
     } catch (error) {
       console.error('Error signing up', error);
     }

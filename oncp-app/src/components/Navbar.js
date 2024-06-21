@@ -1,14 +1,22 @@
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from 'react';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import LoginModal from './LoginModal';
 import SignUpModal from './SignUpModal';
 import './Navbar.scss'; // Import the custom SCSS
+=======
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './Navbar.scss';
+import SignUpModal from './SignUpModal';
+>>>>>>> Stashed changes
 
 const CustomNavbar = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignUp, setShowSignUp] = useState(false);
   const [user, setUser] = useState(null);
 
+<<<<<<< Updated upstream
   const handleLoginClose = () => setShowLogin(false);
   const handleLoginShow = () => setShowLogin(true);
 
@@ -31,6 +39,10 @@ const CustomNavbar = () => {
   const handleLoginSuccess = (userName) => {
     setUser({ name: userName });
   };
+=======
+  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true);
+>>>>>>> Stashed changes
 
   const handleSignUpSuccess = () => {
     console.log('User signed up successfully');
@@ -39,6 +51,7 @@ const CustomNavbar = () => {
 
   return (
     <>
+<<<<<<< Updated upstream
       <Navbar expand="lg" className="custom-navbar">
         <Navbar.Brand href="#home">
           <i className="bi bi-file-medical"></i> ONCP
@@ -72,6 +85,30 @@ const CustomNavbar = () => {
 
       <LoginModal show={showLogin} handleClose={handleLoginClose} onSuccess={handleLoginSuccess} />
       <SignUpModal show={showSignUp} handleClose={handleSignUpClose} onSuccess={handleSignUpSuccess} />
+=======
+      <nav className="navbar navbar-expand-lg custom-navbar">
+        <div className="container">
+          <Link className="navbar-brand" to="/">ONCP</Link>
+          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarNav">
+            <ul className="navbar-nav ms-auto">
+              <li className="nav-item">
+                <Link className="nav-link" to="/">Home</Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#!" onClick={handleShow}>Portal</a>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="/contact">Contact</Link>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <SignUpModal show={showModal} handleClose={handleClose} onSuccess={handleSignUpSuccess} />
+>>>>>>> Stashed changes
     </>
   );
 };

@@ -1,7 +1,7 @@
-.navbar {
-  background-color: #8b0000; // Dark red color for the background
-}
+.custom-navbar {
+  background-color: #8b0000 !important; 
 
+<<<<<<< Updated upstream
 .navbar-brand {
   font-size: 1.5rem;
   color: #ffffff !important; // White color for the brand text
@@ -11,13 +11,21 @@
   color: #ffffff !important; // White color for the nav links
   &:hover {
     color: #ffdd00 !important; // Yellow color on hover
+=======
+  .navbar-brand {
+    font-size: 1.5rem;
+    color: black !important; 
+>>>>>>> Stashed changes
   }
-}
 
-.navbar-toggler {
-  border-color: #ffffff; // White color for the border of the toggler
-}
+  .nav-link {
+    color: black !important; 
+    &:hover {
+      color: #ffdd00 !important; 
+    }
+  }
 
+<<<<<<< Updated upstream
 .navbar-toggler-icon {
   background-color: #ffffff; // White color for the toggler icon
 }
@@ -45,4 +53,13 @@
 
 .btn {
   margin-left: 0.5rem; // Add space between the buttons
+=======
+  .navbar-toggler {
+    border-color: #ffffff !important; 
+  }
+
+  .navbar-toggler-icon {
+    background-color: #ffdd00 !important; 
+  }
+>>>>>>> Stashed changes
 }
