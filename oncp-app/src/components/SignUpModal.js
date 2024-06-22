@@ -2,35 +2,28 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { login } from '../redux/userSlice';  // Adjust the path as needed
-import { useNavigate } from 'react-router-dom';
+import { login } from '../redux/userSlice'; // Adjusted path
 
-const SignUpModal = ({ show, handleClose }) => {
+const SignUpModal = ({ show, handleClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-<<<<<<< Updated upstream
-  const [fullName, setFullName] = useState('');
-  const [birthDate, setBirthDate] = useState('');
-
-  const handleSignUp = async () => {
-    try {
-      await axios.post('http://127.0.0.1:5000/api/auth/signup', { email, password, fullName, birthDate });
-      onSuccess(); // Call the onSuccess handler
-      handleClose();
-=======
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const handleSignUp = async () => {
     try {
-      const response = await axios.post('/api/auth/signup', { email, password });
-      const userData = response.data; // Assuming the response contains user data
+      await axios.post('/api/auth/signup', { email, password });
+      const userData = {
+        name: 'John Doe', // Example user data
+        imageUrl: 'path/to/profile-image.jpg', // Example profile image path
+        appointments: [],
+        labTests: [],
+        prescriptions: [],
+        messages: [],
+      };
 
       dispatch(login(userData));
       localStorage.setItem('token', 'example_token'); // Set token in localStorage
-      handleClose();
-      navigate('/portal'); // Navigate to the portal page
->>>>>>> Stashed changes
+      onSuccess(); // Call the onSuccess handler
     } catch (error) {
       console.error('Error signing up', error);
     }
@@ -39,30 +32,10 @@ const SignUpModal = ({ show, handleClose }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Sign Up</Modal.Title>
+        <Modal.Title>Sign In</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group controlId="formBasicFullName">
-            <Form.Label>Full Name</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter full name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-          </Form.Group>
-
-          <Form.Group controlId="formBasicBirthDate">
-            <Form.Label>Birth Date</Form.Label>
-            <Form.Control
-              type="date"
-              placeholder="Enter birth date"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-            />
-          </Form.Group>
-
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -89,7 +62,7 @@ const SignUpModal = ({ show, handleClose }) => {
           Close
         </Button>
         <Button variant="primary" onClick={handleSignUp}>
-          Sign Up
+          Sign In
         </Button>
       </Modal.Footer>
     </Modal>
@@ -97,3 +70,5 @@ const SignUpModal = ({ show, handleClose }) => {
 };
 
 export default SignUpModal;
+
+

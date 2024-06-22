@@ -1,21 +1,16 @@
 .custom-navbar {
-  background-color: #8b0000 !important; 
+  background-color: #8b0000 !important; // Dark red background for the custom navbar
 
-<<<<<<< Updated upstream
-.navbar-brand {
-  font-size: 1.5rem;
-  color: #ffffff !important; // White color for the brand text
-}
-
-.nav-link {
-  color: #ffffff !important; // White color for the nav links
-  &:hover {
-    color: #ffdd00 !important; // Yellow color on hover
-=======
   .navbar-brand {
     font-size: 1.5rem;
-    color: black !important; 
->>>>>>> Stashed changes
+    color: #ffffff !important; // White color for the brand text
+  }
+
+  .nav-link {
+    color: #ffffff !important; // White color for the nav links
+    &:hover {
+      color: #ffdd00 !important; // Yellow color on hover
+    }
   }
 
   .nav-link {
@@ -25,41 +20,31 @@
     }
   }
 
-<<<<<<< Updated upstream
-.navbar-toggler-icon {
-  background-color: #ffffff; // White color for the toggler icon
-}
-
-.btn-primary {
-  background-color: #ffffff !important; // White background for primary button
-  color: #8b0000 !important; // Dark red text for primary button
-  border-color: #ffffff !important; // White border for primary button
-  &:hover {
-    background-color: #ffdd00 !important; // Yellow background on hover
-    color: #8b0000 !important; // Dark red text on hover
-  }
-}
-
-.btn-secondary {
-  background-color: #ffffff !important; // White background for secondary button
-  color: #8b0000 !important; // Dark red text for secondary button
-  
-  border-color: #ffffff !important; // White border for secondary button
-  &:hover {
-    background-color: #ffdd00 !important; // Yellow background on hover
-    color: #8b0000 !important; // Dark red text on hover
-  }
-}
-
-.btn {
-  margin-left: 0.5rem; // Add space between the buttons
-=======
-  .navbar-toggler {
-    border-color: #ffffff !important; 
-  }
-
   .navbar-toggler-icon {
-    background-color: #ffdd00 !important; 
+    background-color: #ffffff; // White color for the toggler icon
   }
->>>>>>> Stashed changes
+
+  .btn-primary {
+    background-color: #ffffff !important; // White background for primary button
+    color: #8b0000 !important; // Dark red text for primary button
+    border-color: #ffffff !important; // White border for primary button
+    &:hover {
+      background-color: #ffdd00 !important; // Yellow background on hover
+      color: #8b0000 !important; // Dark red text on hover
+    }
+  }
+
+  .btn-secondary {
+    background-color: #ffffff !important; // White background for secondary button
+    color: #8b0000 !important; // Dark red text for secondary button
+    border-color: #ffffff !important; // White border for secondary button
+    &:hover {
+      background-color: #ffdd00 !important; // Yellow background on hover
+      color: #8b0000 !important; // Dark red text on hover
+    }
+  }
+
+  .btn {
+    margin-left: 0.5rem; // Add space between the buttons
+  }
 }

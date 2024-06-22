@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { login } from '../redux/userSlice'; 
+import { useNavigate, useLocation } from 'react-router-dom';
+import { login } from '../redux/userSlice'; // Adjusted path
 
 const Login = () => {
   const [email, setEmail] = useState('');
