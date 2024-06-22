@@ -1,7 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Contact.scss"; // Import the custom styles
+import axios from 'axios';
 
 const Contact = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [contactMethod, setContactMethod] = useState('Phone');
+  const [contactPreference, setContactPreference] = useState('phone');
+  const [comments, setComments] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      // Example: Send form data to backend server
+      const response = await axios.post('http://localhost:5000/api/contact', {
+        name,
+        email,
+        phone,
+        contactMethod,
+        comments
+      });
+
+      // Assuming backend responds with a success message
+      if (response.status === 200) {
+        setFormSubmitted(true);
+        // Optionally clear form fields after successful submission
+        setName('');
+        setEmail('');
+        setPhone('');
+        setComments('');
+        // You can also reset other state variables as needed
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setError('Failed to submit the form. Please try again later.');
+    }
+  };
+
   return (
     <div className="container mt-4">
       <div className="row">
@@ -25,7 +63,7 @@ const Contact = () => {
             alt="Contact"
             className="img-fluid"
           />
-          <form className="mt-3">
+          <form className="mt-3" onSubmit={handleFormSubmit}>
             <div className="form-group">
               <label htmlFor="name">Name</label>
               <input
@@ -33,6 +71,9 @@ const Contact = () => {
                 className="form-control"
                 id="name"
                 placeholder="Enter your name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
             <div className="form-group mt-3">
@@ -42,6 +83,9 @@ const Contact = () => {
                 className="form-control"
                 id="email"
                 placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="form-group mt-3">
@@ -51,11 +95,19 @@ const Contact = () => {
                 className="form-control"
                 id="phone"
                 placeholder="Enter your phone number"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                required
               />
             </div>
             <div className="form-group mt-3">
               <label htmlFor="contactMethod">Preferred Contact Method</label>
-              <select className="form-control" id="contactMethod">
+              <select
+                className="form-control"
+                id="contactMethod"
+                value={contactMethod}
+                onChange={(e) => setContactMethod(e.target.value)}
+              >
                 <option>Phone</option>
                 <option>Email</option>
               </select>
@@ -69,6 +121,8 @@ const Contact = () => {
                   name="contactPreference"
                   id="contactPhone"
                   value="phone"
+                  checked={contactPreference === 'phone'}
+                  onChange={() => setContactPreference('phone')}
                 />
                 <label className="form-check-label" htmlFor="contactPhone">
                   Phone
@@ -81,6 +135,8 @@ const Contact = () => {
                   name="contactPreference"
                   id="contactEmail"
                   value="email"
+                  checked={contactPreference === 'email'}
+                  onChange={() => setContactPreference('email')}
                 />
                 <label className="form-check-label" htmlFor="contactEmail">
                   Email
@@ -93,11 +149,23 @@ const Contact = () => {
                 className="form-control"
                 id="comments"
                 rows="3"
+                value={comments}
+                onChange={(e) => setComments(e.target.value)}
               ></textarea>
             </div>
             <button type="submit" className="btn btn-primary mt-3">
               Submit
             </button>
+            {formSubmitted && (
+              <div className="alert alert-success mt-3" role="alert">
+                Your message has been sent successfully!
+              </div>
+            )}
+            {error && (
+              <div className="alert alert-danger mt-3" role="alert">
+                {error}
+              </div>
+            )}
           </form>
         </div>
         <div className="col-md-9">

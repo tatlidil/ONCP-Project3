@@ -2,19 +2,23 @@ import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { login } from '../redux/userSlice'; // Adjusted path
+import { login } from '../redux/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpModal = ({ show, handleClose, onSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // useNavigate hook for navigation
 
   const handleSignUp = async () => {
     try {
-      await axios.post('/api/auth/signup', { email, password });
+      await axios.post('http://localhost:5000/api/auth/signup', { email, password });
+
+      // Example user data
       const userData = {
-        name: 'John Doe', // Example user data
-        imageUrl: 'path/to/profile-image.jpg', // Example profile image path
+        name: 'John Doe',
+        imageUrl: 'path/to/profile-image.jpg',
         appointments: [],
         labTests: [],
         prescriptions: [],
@@ -22,17 +26,29 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
       };
 
       dispatch(login(userData));
-      localStorage.setItem('token', 'example_token'); // Set token in localStorage
+      localStorage.setItem('token', 'example_token');
       onSuccess(); // Call the onSuccess handler
     } catch (error) {
       console.error('Error signing up', error);
     }
   };
 
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password });
+      const { token } = res.data;
+      localStorage.setItem('token', token);
+      navigate('/'); // Navigate to the homepage after successful sign-in
+    } catch (error) {
+      console.error('Error signing in', error);
+    }
+  };
+
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Sign In</Modal.Title>
+        <Modal.Title>Access Portal</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -61,8 +77,11 @@ const SignUpModal = ({ show, handleClose, onSuccess }) => {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleSignUp}>
+        <Button variant="primary" onClick={handleSignIn}>
           Sign In
+        </Button>
+        <Button variant="link" onClick={handleSignUp}>
+          Sign Up for Access
         </Button>
       </Modal.Footer>
     </Modal>

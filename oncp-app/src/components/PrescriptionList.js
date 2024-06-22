@@ -6,11 +6,15 @@ const PrescriptionList = () => {
 
   useEffect(() => {
     const fetchPrescriptions = async () => {
-      const token = localStorage.getItem('token');
-      const res = await axios.get('/api/prescriptions', {
-        headers: { 'x-auth-token': token }
-      });
-      setPrescriptions(res.data);
+      try {
+        const token = localStorage.getItem('token');
+        const res = await axios.get('http://localhost:5000/api/prescriptions', {
+          headers: { 'x-auth-token': token }
+        });
+        setPrescriptions(res.data);
+      } catch (err) {
+        console.error(err);
+      }
     };
 
     fetchPrescriptions();
