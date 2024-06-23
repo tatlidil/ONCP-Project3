@@ -2,12 +2,21 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 import SignUpModal from './SignUpModal';
+import SignUpForm from './SignUpForm';
 
 const CustomNavbar = () => {
   const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState(null);
 
-  const handleClose = () => setShowModal(false);
-  const handleShow = () => setShowModal(true);
+  const handleClose = () => {
+    setShowModal(false);
+    setModalContent(null);
+  };
+
+  const handleShow = (content) => {
+    setShowModal(true);
+    setModalContent(content);
+  };
 
   return (
     <>
@@ -23,18 +32,22 @@ const CustomNavbar = () => {
                 <Link className="nav-link" to="/">Home</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#!" onClick={handleShow}>Portal</a>
+                <Link className="nav-link" to="#" onClick={() => handleShow('signin')}>Portal</Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/contact">Contact</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link" to="#" onClick={() => handleShow('signup')}>Sign Up</Link>
               </li>
             </ul>
           </div>
         </div>
       </nav>
-      <SignUpModal show={showModal} handleClose={handleClose} />
+      <SignUpModal show={showModal} handleClose={handleClose} content={modalContent} />
     </>
   );
 };
 
 export default CustomNavbar;
+
