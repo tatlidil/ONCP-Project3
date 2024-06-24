@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('config');
+const connectDB = require('./config/db');
+require('dotenv').config(); // Load .env file
+
 
 const app = express();
 app.use(bodyParser.json());
@@ -18,7 +21,7 @@ mongoose.connect(db, {
 .catch(err => console.log(err));
 
 // Define Routes
-const userRoutes = require('./routes/api/users');
+const userRoutes = require('./routes/api/user');
 const authRoutes = require('./routes/api/auth');
 const prescriptionRoutes = require('./routes/api/prescriptions');
 

@@ -22,7 +22,17 @@ const SignUpForm = ({ onSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/auth/signup', userData);
+      const response = await axios.post('http://localhost:5000/api/users', {
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+        dateOfBirth: userData.dob,
+        email: userData.email,
+        phoneNumber: userData.phone,
+        childName: userData.childName,
+        childDateOfBirth: userData.childDob,
+        password: userData.password
+      });
+      console.log('Response:', response.data);
       onSuccess(); // Close the modal after successful sign-up
       alert('Sign Up Successful! Please Sign In to access the portal.');
       setUserData({
@@ -36,7 +46,7 @@ const SignUpForm = ({ onSuccess }) => {
         password: ''
       });
     } catch (error) {
-      console.error('Error signing up:', error);
+      console.error('Error signing up:', error.response ? error.response.data : error.message);
       alert('Error signing up. Please try again.');
     }
   };

@@ -12,7 +12,7 @@ const SignUpModal = ({ show, handleClose, content }) => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password });
+      const res = await axios.post('http://127.0.0.1:5000/api/auth/login', { email, password });
       const { token } = res.data;
       localStorage.setItem('token', token);
       handleClose(); // Call the onSuccess handler to close modal
@@ -40,6 +40,7 @@ const SignUpModal = ({ show, handleClose, content }) => {
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </Form.Group>
 
@@ -50,6 +51,7 @@ const SignUpModal = ({ show, handleClose, content }) => {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </Form.Group>
             <Button variant="primary" type="submit">
@@ -68,5 +70,3 @@ const SignUpModal = ({ show, handleClose, content }) => {
 };
 
 export default SignUpModal;
-
-
