@@ -1,25 +1,36 @@
 .container {
-    margin-top: 4rem;
-  }
-  
-  .card-img-top {
-    width: 100%;
-    height: auto;
-  }
-  
-  .card-body {
-    text-align: center;
-  }
-  
-  h1, h2 {
-    color: #333;
-  }
-  
-  ul.list-group {
-    max-height: 300px;
-    overflow-y: auto;
-  }
-  
-  button.btn-primary {
-    margin-bottom: 1rem;
-  }
+  padding-top: 20px;
+}
+
+.card {
+  width: 100%;
+  max-width: 300px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.section {
+  margin-bottom: 2rem;
+}
+
+.section h2 {
+  margin-bottom: 1rem;
+}
+
+.list-group-item {
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  margin-bottom: 1rem;
+}

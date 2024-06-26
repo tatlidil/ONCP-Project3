@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('config');
-const connectDB = require('./config/db');
 require('dotenv').config(); // Load .env file
-
 
 const app = express();
 app.use(bodyParser.json());
@@ -24,10 +22,12 @@ mongoose.connect(db, {
 const userRoutes = require('./routes/api/user');
 const authRoutes = require('./routes/api/auth');
 const prescriptionRoutes = require('./routes/api/prescriptions');
+const messageRoutes = require('./routes/api/messageRoutes'); // Import message routes
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/prescriptions', prescriptionRoutes);
+app.use('/api/messages', messageRoutes); // Use message routes
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
