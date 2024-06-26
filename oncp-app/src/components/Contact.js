@@ -15,8 +15,7 @@ const Contact = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      // Example: Send form data to backend server
-      const response = await axios.post('http://localhost:5000/api/contact', {
+      const response = await axios.post('http://127.0.0.1:5000/api/contact', {
         name,
         email,
         phone,
@@ -24,15 +23,12 @@ const Contact = () => {
         comments
       });
 
-      // Assuming backend responds with a success message
       if (response.status === 200) {
         setFormSubmitted(true);
-        // Optionally clear form fields after successful submission
         setName('');
         setEmail('');
         setPhone('');
         setComments('');
-        // You can also reset other state variables as needed
       }
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -44,28 +40,28 @@ const Contact = () => {
     <div className="container mt-4">
       <div className="row">
         <div className="col-md-3">
-          <h2>Office Hours</h2>
+          <h2 className="text-left">Office Hours</h2>
           <hr />
-          <p>
+          <p className="text-left">
             Monday - Friday
             <br />
             8am - 5pm
           </p>
-          <p>
+          <p className="text-left">
             Phone: 955-679-9888
             <br />
             Fax: 955-679-0250
           </p>
-          <h2>Contact Us</h2>
+          <h2 className="text-left">Contact Us</h2>
           <hr />
           <img
             src="/foto-sushi-6anudmpILw4-unsplash.jpg"
             alt="Contact"
-            className="img-fluid"
+            className="img-fluid rounded mb-3"
           />
-          <form className="mt-3" onSubmit={handleFormSubmit}>
+          <form className="needs-validation" onSubmit={handleFormSubmit} noValidate>
             <div className="form-group">
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name" className="text-left w-100">Name</label>
               <input
                 type="text"
                 className="form-control"
@@ -75,9 +71,12 @@ const Contact = () => {
                 onChange={(e) => setName(e.target.value)}
                 required
               />
+              <div className="invalid-feedback">
+                Please provide your name.
+              </div>
             </div>
             <div className="form-group mt-3">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="email" className="text-left w-100">Email</label>
               <input
                 type="email"
                 className="form-control"
@@ -87,9 +86,12 @@ const Contact = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              <div className="invalid-feedback">
+                Please provide a valid email.
+              </div>
             </div>
             <div className="form-group mt-3">
-              <label htmlFor="phone">Phone</label>
+              <label htmlFor="phone" className="text-left w-100">Phone</label>
               <input
                 type="tel"
                 className="form-control"
@@ -97,11 +99,10 @@ const Contact = () => {
                 placeholder="Enter your phone number"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                required
               />
             </div>
             <div className="form-group mt-3">
-              <label htmlFor="contactMethod">Preferred Contact Method</label>
+              <label htmlFor="contactMethod" className="text-left w-100">Preferred Contact Method</label>
               <select
                 className="form-control"
                 id="contactMethod"
@@ -112,39 +113,9 @@ const Contact = () => {
                 <option>Email</option>
               </select>
             </div>
+            
             <div className="form-group mt-3">
-              <label>Contact Preference</label>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="contactPreference"
-                  id="contactPhone"
-                  value="phone"
-                  checked={contactPreference === 'phone'}
-                  onChange={() => setContactPreference('phone')}
-                />
-                <label className="form-check-label" htmlFor="contactPhone">
-                  Phone
-                </label>
-              </div>
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="contactPreference"
-                  id="contactEmail"
-                  value="email"
-                  checked={contactPreference === 'email'}
-                  onChange={() => setContactPreference('email')}
-                />
-                <label className="form-check-label" htmlFor="contactEmail">
-                  Email
-                </label>
-              </div>
-            </div>
-            <div className="form-group mt-3">
-              <label htmlFor="comments">Comments</label>
+              <label htmlFor="comments" className="text-left w-100">Comments</label>
               <textarea
                 className="form-control"
                 id="comments"
@@ -153,7 +124,7 @@ const Contact = () => {
                 onChange={(e) => setComments(e.target.value)}
               ></textarea>
             </div>
-            <button type="submit" className="btn btn-primary mt-3">
+            <button type="submit" className="btn btn-primary mt-3 w-100">
               Submit
             </button>
             {formSubmitted && (
@@ -169,31 +140,30 @@ const Contact = () => {
           </form>
         </div>
         <div className="col-md-9">
-          <h1>Contact Information</h1>
+          <h1 className="text-center">Contact Information</h1>
           <hr />
-          <h2> The Staff</h2>
+          <h2 className="text-center">The Staff</h2>
           <img
             src="\staffp3.jpg"
             alt="Staff"
-            className="img-fluid small-image"
+            className="img-fluid small-image mb-3"
           />
-
-          <p>
+          <p className="text-justify">
             If you have any questions, please feel free to contact us. We are
             here to help you and your child. Our office staff is available
             during office hours to assist with scheduling, billing inquiries,
             and any other questions you may have.
           </p>
-          <p>
+          <p className="text-justify">
             You can reach us via phone, fax, or email. For general inquiries,
             please use the form below, and we will get back to you as soon as
             possible.
           </p>
-          <h2> Our Patients</h2>
+          <h2 className="text-center">Our Patients</h2>
           <img
             src="\istockphoto-1388254153-170667a.webp"
             alt="Office"
-            className="img-fluid mb-3"
+            className="img-fluid mb-3 rounded"
           />
         </div>
       </div>

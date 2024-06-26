@@ -19,7 +19,7 @@ const SignUpModal = ({ show, handleClose, content }) => {
       navigate('/portal'); // Navigate to the portal after successful sign-in
     } catch (error) {
       console.error('Error signing in', error);
-      setSignInError('Please check your email or password and try again.');
+      setSignInError('Please check your email or password and try again. If you don\'t have an account, you can sign up first.');
     }
   };
 
