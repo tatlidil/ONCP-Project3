@@ -1,15 +1,36 @@
 .small-image {
-    max-width: 50%; // Adjust this value to make the image smaller as needed
-    height: auto;
-    display: block;
-    margin: 0 auto;
-  }
-  
-  .form-group {
-    margin-bottom: 1rem;
-  }
-  
-  .btn-primary {
-    background-color: #007bff;
-    border-color: #007bff;
-  }
+  max-width: 50%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.rounded-circle {
+  border-radius: 50%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2, h1, p, label {
+  text-align: left; // Align all text to the left
+}
+
+hr {
+  border-top: 2px solid #8b0000;
+}
+
+.invalid-feedback {
+  display: block;
+}

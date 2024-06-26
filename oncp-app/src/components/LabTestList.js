@@ -1,33 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const LabTestList = () => {
-  const [labTests, setLabTests] = useState([]);
-
-  useEffect(() => {
-    const fetchLabTests = async () => {
-      const token = localStorage.getItem('token');
-      const res = await axios.get('/api/labtests', {
-        headers: { 'x-auth-token': token }
-      });
-      setLabTests(res.data);
-    };
-
-    fetchLabTests();
-  }, []);
+const LabTestList = ({ labTests }) => {
+  if (!labTests) {
+    return <p>No lab tests available.</p>;
+  }
 
   return (
-    <div>
-      <h2>Lab Tests</h2>
-      <ul>
-        {labTests.map(test => (
-          <li key={test._id}>
-            {test.testName} - {test.result} (Date: {new Date(test.date).toLocaleDateString()})
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="list-group">
+      {labTests.map((test, index) => (
+        <li key={index} className="list-group-item">
+          {test}
+        </li>
+      ))}
+    </ul>
   );
+};
+
+LabTestList.propTypes = {
+  labTests: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default LabTestList;

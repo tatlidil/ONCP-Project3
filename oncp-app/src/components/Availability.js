@@ -1,17 +1,24 @@
-// src/components/Availability.js
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Availability = ({ availability }) => {
+  if (!availability) {
+    return <p>No availability information provided.</p>;
+  }
+
   return (
-    <div>
-      <h3>Doctor's Availability</h3>
-      <ul>
-        {availability.map((slot, index) => (
-          <li key={index}>{slot}</li>
-        ))}
-      </ul>
-    </div>
+    <ul className="list-group">
+      {availability.map((timeSlot, index) => (
+        <li key={index} className="list-group-item">
+          {timeSlot}
+        </li>
+      ))}
+    </ul>
   );
+};
+
+Availability.propTypes = {
+  availability: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default Availability;

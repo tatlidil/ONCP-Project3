@@ -8,7 +8,7 @@ const PrescriptionList = () => {
     const fetchPrescriptions = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get('http://localhost:5000/api/prescriptions', {
+        const res = await axios.get('http://12.0.0.1:5000/api/prescriptions', {
           headers: { 'x-auth-token': token }
         });
         setPrescriptions(res.data);

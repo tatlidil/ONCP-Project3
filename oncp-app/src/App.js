@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Portal from './components/Portal';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
-import SignUpModal from './components/SignUpModal'; // Ensure SignUpModal is imported
+import SignUpModal from './components/SignUpModal';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
