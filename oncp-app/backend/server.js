@@ -24,6 +24,8 @@ mongoose.connect(db, {
 const userRoutes = require('./routes/api/user');
 const authRoutes = require('./routes/api/auth');
 const prescriptionRoutes = require('./routes/api/prescriptions');
+app.use('/api/contact', require('./routes/api/contact'));
+
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
