@@ -1,8 +1,9 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { store } from './redux/store'; 
+import { store } from './redux/store';
 import App from './App';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'; // Import the service worker registration
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 
@@ -14,3 +15,6 @@ root.render(
     <App />
   </Provider>
 );
+
+// Register the service worker
+serviceWorkerRegistration.register();
