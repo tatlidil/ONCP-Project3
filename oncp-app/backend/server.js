@@ -14,10 +14,10 @@ app.use(cookieParser());
 
 // Session setup
 app.use(session({
-  secret: 'your_secret_key', // Replace with a secure key
+  secret: 'ce9084785d4db3c18f19b103bbba91dae5e3f828a06822cad8804422adddf1877eb2ab7c86eb036f23577e4c8e3025a0068f654ad54ca5195574c73355b1e0ef', // Replace with a secure key
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Set secure: true if using https
+  cookie: { secure: true } 
 }));
 
 // Connect to MongoDB
@@ -33,12 +33,17 @@ mongoose.connect(db, {
 const userRoutes = require('./routes/api/user');
 const authRoutes = require('./routes/api/auth');
 const prescriptionRoutes = require('./routes/api/prescriptions');
-const messageRoutes = require('./routes/api/messageRoutes'); // Import message routes
+const messageRoutes = require('./routes/api/messageRoutes'); 
+const appointmentRoutes = require('./routes/api/appointments');
+const contactRoutes = require('./routes/api/contact');
+
 
 app.use('/api/users', userRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/prescriptions', prescriptionRoutes);
-app.use('/api/messages', messageRoutes); // Use message routes
+app.use('/api/messages', messageRoutes); 
+app.use('/api/appointments', appointmentRoutes);
+app.use('/api/contact', contactRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

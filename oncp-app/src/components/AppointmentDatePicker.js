@@ -1,7 +1,9 @@
+// components/AppointmentDatePicker.js
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Button, Modal, Row, Col } from 'react-bootstrap';
+import axios from 'axios';
+import { Button, Row, Col } from 'react-bootstrap';
 
 const AppointmentDatePicker = ({ onDateSelect }) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -10,9 +12,19 @@ const AppointmentDatePicker = ({ onDateSelect }) => {
     setSelectedDate(date);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (selectedDate) {
-      onDateSelect(selectedDate);
+      try {
+        const token = localStorage.getItem('token'); // Get token from localStorage
+        await axios.post(
+          'http://127.0.0.1:5000/api/appointments',
+          { date: selectedDate },
+          { headers: { 'x-auth-token': token } } // Include token in request headers
+        );
+        onDateSelect(selectedDate);
+      } catch (error) {
+        console.error('Error saving appointment:', error);
+      }
     } else {
       alert('Please select a date');
     }

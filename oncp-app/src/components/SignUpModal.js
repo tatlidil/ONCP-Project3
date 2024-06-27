@@ -15,14 +15,14 @@ const SignUpModal = ({ show, handleClose, content }) => {
       const res = await axios.post('http://127.0.0.1:5000/api/auth/login', data);
       const { token } = res.data;
       localStorage.setItem('token', token);
-      handleClose(); // Call the onSuccess handler to close modal
-      navigate('/portal'); // Navigate to the portal after successful sign-in
+      handleClose();
+      navigate('/portal');
     } catch (error) {
       console.error('Error signing in', error);
-      setSignInError('Please check your email or password and try again. If you don\'t have an account, you can sign up first.');
+      setSignInError('Please check your email or password and try again.');
     }
   };
-
+  
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>

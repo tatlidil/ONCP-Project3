@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middlewares/auth');
-const Message = require('../../models/Message');
+const Message = require('../../models/message');
 
 // @route   GET api/messages
 // @desc    Get all messages

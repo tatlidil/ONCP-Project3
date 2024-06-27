@@ -7,7 +7,6 @@ const Contact = () => {
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [contactMethod, setContactMethod] = useState('Phone');
-  const [contactPreference, setContactPreference] = useState('phone');
   const [comments, setComments] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [error, setError] = useState('');
@@ -29,6 +28,8 @@ const Contact = () => {
         setEmail('');
         setPhone('');
         setComments('');
+      } else {
+        setError('Failed to submit the form. Please try again later.');
       }
     } catch (error) {
       console.error('Error submitting form:', error);

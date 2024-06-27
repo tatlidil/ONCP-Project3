@@ -1,8 +1,10 @@
+// components/Portal.js
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMessages, sendMessage } from '../redux/actions/messageActions';
 import AppointmentDatePicker from './AppointmentDatePicker';
 import Modal from 'react-modal';
+import axios from 'axios'; // Import axios
 import './Portal.scss';
 
 Modal.setAppElement('#root');
@@ -30,8 +32,24 @@ const Portal = () => {
     }, 3000);
   };
 
-  const handleDateSelect = (date) => {
-    console.log('Selected date:', date);
+  const handleDateSelect = async (date) => {
+    if (date) {
+      try {
+        const token = localStorage.getItem('token'); // Get token from localStorage
+        await axios.post(
+          'http://127.0.0.1:5000/api/appointments',
+          { date },
+          { headers: { 'x-auth-token': token } } // Include token in request headers
+        );
+        setNotification('Appointment requested successfully!');
+        setTimeout(() => {
+          setNotification('');
+        }, 3000);
+      } catch (error) {
+        console.error('Error requesting appointment:', error);
+        setNotification('Failed to request appointment.');
+      }
+    }
     setModalIsOpen(false);
   };
 
@@ -120,7 +138,7 @@ const Portal = () => {
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
                 placeholder="Write a message..."
-                style={{ resize: '', maxWidth: '500px' }}
+                style={{ resize: 'none', maxWidth: '500px' }}
               ></textarea>
               <button
                 className="btn btn-primary mt-2 btn-md"
