@@ -1,10 +1,10 @@
-// components/Portal.js
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getMessages, sendMessage } from '../redux/actions/messageActions';
 import AppointmentDatePicker from './AppointmentDatePicker';
 import Modal from 'react-modal';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './Portal.scss';
 
 Modal.setAppElement('#root');
@@ -18,6 +18,7 @@ const Portal = () => {
   const [labTestsChecked, setLabTestsChecked] = useState(false);
   const [prescriptionsChecked, setPrescriptionsChecked] = useState(false);
   const [notification, setNotification] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getMessages());
@@ -35,11 +36,11 @@ const Portal = () => {
   const handleDateSelect = async (date) => {
     if (date) {
       try {
-        const token = localStorage.getItem('token'); // Get token from localStorage
+        const token = localStorage.getItem('token');
         await axios.post(
           'http://127.0.0.1:5000/api/appointments',
           { date },
-          { headers: { 'x-auth-token': token } } // Include token in request headers
+          { headers: { 'x-auth-token': token } }
         );
         setNotification('Appointment requested successfully!');
         setTimeout(() => {
@@ -59,6 +60,11 @@ const Portal = () => {
 
   const handleCheckPrescriptions = () => {
     setPrescriptionsChecked(true);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
   };
 
   return (
@@ -193,6 +199,10 @@ const Portal = () => {
         <h2>Select Appointment Date</h2>
         <AppointmentDatePicker onDateSelect={handleDateSelect} />
       </Modal>
+
+      <button onClick={handleLogout} className="btn btn-danger logout-button">
+        Logout
+      </button>
     </div>
   );
 };
