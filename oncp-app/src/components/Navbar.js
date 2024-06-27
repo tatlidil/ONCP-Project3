@@ -21,7 +21,9 @@ const CustomNavbar = () => {
     <>
       <nav className="navbar navbar-expand-lg custom-navbar">
         <div className="container">
-          <Link className="navbar-brand" to="/">ONCP</Link>
+          <Link className="navbar-brand" to="/">
+            <i className="bi bi-file-medical me-2"></i>ONCP
+          </Link>
           <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"><i className="fas fa-bars"></i></span>
           </button>

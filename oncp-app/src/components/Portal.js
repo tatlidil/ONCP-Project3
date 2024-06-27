@@ -47,18 +47,19 @@ const Portal = () => {
     <div className="container mt-4">
       <div className="row">
         <div className="col-md-12 text-center">
-          <h1>Patient Portal</h1>
+          <h1 className="mb-4">Patient Portal</h1>
+          <p className="lead">Welcome {user.firstName}!</p>
           <hr />
-          <p>Welcome, {user.firstName}!</p>
         </div>
       </div>
       <div className="row">
         <div className="col-md-8">
-          <section className="section">
+          <section className="mb-5">
             <h2>Appointments</h2>
             <button
-              className="btn btn-primary mb-3"
+              className="btn btn-primary mb-3 btn-md"
               onClick={() => setModalIsOpen(true)}
+              style={{ display: 'block', marginLeft: '0' }}
             >
               Make an Appointment
             </button>
@@ -70,9 +71,13 @@ const Portal = () => {
               ))}
             </ul>
           </section>
-          <section className="section">
+          <section className="mb-5">
             <h2>Lab Tests</h2>
-            <button className="btn btn-primary mb-3" onClick={handleCheckLabTests}>
+            <button
+              className="btn btn-primary mb-3 btn-md"
+              onClick={handleCheckLabTests}
+              style={{ display: 'block', marginLeft: '0' }}
+            >
               Check Lab Tests
             </button>
             {labTestsChecked && user.labTests.length === 0 && (
@@ -86,9 +91,13 @@ const Portal = () => {
               ))}
             </ul>
           </section>
-          <section className="section">
+          <section className="mb-5">
             <h2>Prescriptions</h2>
-            <button className="btn btn-primary mb-3" onClick={handleCheckPrescriptions}>
+            <button
+              className="btn btn-primary mb-3 btn-md"
+              onClick={handleCheckPrescriptions}
+              style={{ display: 'block', marginLeft: '0' }}
+            >
               Check Prescriptions
             </button>
             {prescriptionsChecked && user.prescriptions.length === 0 && (
@@ -102,17 +111,22 @@ const Portal = () => {
               ))}
             </ul>
           </section>
-          <section className="section">
+          <section className="mb-5">
             <h2>Messages</h2>
             <div className="mb-3">
               <textarea
                 className="form-control"
-                rows="3"
+                rows="1"
                 value={messageText}
                 onChange={(e) => setMessageText(e.target.value)}
                 placeholder="Write a message..."
+                style={{ resize: '', maxWidth: '500px' }}
               ></textarea>
-              <button className="btn btn-primary mt-2" onClick={handleSendMessage}>
+              <button
+                className="btn btn-primary mt-2 btn-md"
+                onClick={handleSendMessage}
+                style={{ display: 'block', marginLeft: '0', maxWidth: '200px' }}
+              >
                 Send Message
               </button>
             </div>
@@ -160,9 +174,6 @@ const Portal = () => {
       >
         <h2>Select Appointment Date</h2>
         <AppointmentDatePicker onDateSelect={handleDateSelect} />
-        <button className="btn btn-secondary mt-3" onClick={() => setModalIsOpen(false)}>
-          Close
-        </button>
       </Modal>
     </div>
   );

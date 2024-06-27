@@ -5,6 +5,7 @@ import Portal from './components/Portal';
 import Contact from './components/Contact';
 import Navbar from './components/Navbar';
 import SignUpModal from './components/SignUpModal';
+import Footer from './components/Footer';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
@@ -40,9 +41,9 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="App d-flex flex-column min-vh-100">
         <Navbar onSignUp={handleSignUpShow} onSignIn={handleSignInShow} />
-        <main className="content">
+        <main className="content flex-grow-1">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route
@@ -57,6 +58,7 @@ function App() {
           </Routes>
         </main>
         <SignUpModal show={showSignUp} handleClose={handleSignUpClose} content={content} />
+        <Footer />
       </div>
     </Router>
   );
