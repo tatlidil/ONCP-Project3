@@ -3,11 +3,22 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('config');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 require('dotenv').config(); // Load .env file
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+app.use(cookieParser());
+
+// Session setup
+app.use(session({
+  secret: 'your_secret_key', // Replace with a secure key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set secure: true if using https
+}));
 
 // Connect to MongoDB
 const db = config.get('mongoURI');
