@@ -2,7 +2,7 @@ import axios from 'axios';
 import { GET_MESSAGES, SEND_MESSAGE, MESSAGE_ERROR } from '../types';
 
 // Get messages
-export const getMessages = () => async dispatch => {
+export const getMessages = () => async dispatch => { //fetching message from backend api
   try {
     const res = await axios.get('/api/messages');
     dispatch({

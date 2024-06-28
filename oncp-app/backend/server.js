@@ -12,12 +12,12 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(cookieParser());
 
-// Session setup
+// Session setup //cookies
 app.use(session({
   secret: 'ce9084785d4db3c18f19b103bbba91dae5e3f828a06822cad8804422adddf1877eb2ab7c86eb036f23577e4c8e3025a0068f654ad54ca5195574c73355b1e0ef', // Replace with a secure key
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true } 
+  cookie: { secure: false } 
 }));
 
 // Connect to MongoDB

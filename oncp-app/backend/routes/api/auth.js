@@ -34,13 +34,17 @@ router.post('/login', [
 
     // Set session
     req.session.user = { id: user.id, name: user.fullName };
+
+    // Set cookie
     res.cookie('user', user.id, { maxAge: 900000, httpOnly: true });
+
     res.json({ msg: 'Login successful', user: req.session.user });
   } catch (err) {
     console.error(err.message);
     res.status(500).send('Server error');
   }
 });
+
 
 // @route    POST /api/auth/logout
 // @desc     Logout user & destroy session
@@ -63,6 +67,17 @@ router.get('/check-auth', (req, res) => {
     res.json({ msg: 'Authenticated', user: req.session.user });
   } else {
     res.status(401).json({ msg: 'Not authenticated' });
+  }
+});
+
+// @route    GET /api/auth/profile
+// @desc     Get user profile
+// @access   Private
+router.get('/profile', (req, res) => {
+  if (req.session.user) {
+    res.json({ user: req.session.user });
+  } else {
+    res.status(401).json({ msg: 'Unauthorized' });
   }
 });
 
